@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <style>
+        .footerStyle {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .fruitImg {
+            width: 200px;
+            height: 150px;
+        }
+        a:hover {
+            color: red;
+        }
+        img{
+            width:300px;
+            height: 200px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="base :: navlinks"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-2">&nbsp;</div>
+        <div class="col-8">
+            <br/>
+            <br/>
+            <h2>Add a Fruit</h2>
+            <form method="post" action="/addnewFruit" th:object="${fruit}" enctype="multipart/form-data">
+                <div class="form-group"><input type="hidden" th:field="*{id}"></div>
+
+                <div class="form-group"><strong>Fruit Name; </strong>
+                    <input type="text" placeholder="Enter a fruit name" th:field="*{name}">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </div>
+
+                <div class="form-group"><strong>Price: </strong>
+                    <input type="number" step="0.01" th:field="*{price}">
+                    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+                </div>
+
+                <br/>
+
+                <input type="file" name="file" />
+                <button type="submit" class="btn btn-success">Click</button>
+            </form>
+            <br>
+            <br>
+            <br>
+            <div class="col-2">&nbsp;</div>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div th:replace="base :: footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+</body>
+</html>

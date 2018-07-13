@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <style>
+        .footerStyle {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .fruitImg {
+            width: 200px;
+            height: 150px;
+        }
+        a:hover {
+            color: red;
+        }
+        img{
+            width:300px;
+            height: 200px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="base :: navlinks"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-2">&nbsp;</div>
+        <div class="col-8">
+            <br/>
+            <br/>
+            <h2>Day form</h2>
+            <form method="post" action="/addnewday" th:object="${day}">
+
+                <select class="form-control" th:field="*{name}">
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+                </select>
+
+                <label for="fruitInput"><strong>Fruit </strong></label>
+                <select class="form-control" id="fruitInput" th:field="*{fruit}">
+                    <option th:each="fruit : ${fruits}"
+                            th:value="${fruit.id}"
+                            th:utext="${fruit.name}"/>
+                </select>
+
+                <label for="hourInput"><strong>Hour </strong></label>
+                <select class="form-control" id="hourInput" th:field="*{hour}">
+                    <option th:each="hour : ${hours}"
+                            th:value="${hour.id}"
+                            th:utext="${hour.schedule}"/>
+                </select>
+                <br/>
+
+
+                <button type="submit" class="btn btn-success">Click</button>
+            </form>
+            <br>
+            <br>
+            <br>
+            <div class="col-2">&nbsp;</div>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div th:replace="base :: footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+</body>
+</html>

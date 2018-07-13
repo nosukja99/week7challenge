@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
+          integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <style>
+        .footerStyle {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+        .fruitImg {
+            width: 200px;
+            height: 200px;
+        }
+        a:hover {
+            color: red;
+        }
+        img{
+            width:300px;
+            height: 200px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="base :: navlinks"></div>
+<div class="container">
+
+    <div class="jumbotron jumbotron-fluid"><h3 class="display-4">Current Schedule</h3></div>
+    <table class="table table-striped">
+        <div th:each="day : ${days}">
+            <tr>
+                <td><h4 th:text ="${day.name}"></h4></td>
+                <td><h5 th:text = "${day.fruit.name}"></h5></td>
+                <td><h5 th:text = "${day.hour.schedule}"></h5></td>
+                <td><a th:href="@{/updateDay/{id} (id=${day.id})}">Update Day</a> -
+                    <a th:href="@{/deleteDay/{id} (id=${day.id})}">Delete Day</a></td>
+            </tr>
+        </div>
+    </table>
+    <a href="/addnewday" class="badge badge-success"><h3 class="font-weight-bold">Add new Day</h3></a><br>
+
+    <div class="jumbotron jumbotron-fluid"><h3 class="display-4">Current Fruit List</h3></div>
+    <div class="row">
+        <div th:each="fruit : ${fruits}" class="col-4 card" style="width: 18rem;">
+            <div class="card-img-top">
+                <div th:if="${fruit.image} !=null">
+                    <img th:src="${fruit.image}" class="fruitImg" alt="fruit image"/>
+                    <hr/>
+                </div>
+            </div>
+            <h4 class="card-title" th:text ="${fruit.name}"></h4>
+            <h5 class="card-subtitle" th:text = "${fruit.price}"></h5>
+            <div class="card-body">
+                <div><a th:href="@{/updateFruit/{id} (id=${fruit.id})}">Update Fruit</a> -
+                    <a th:href="@{/deleteFruit/{id} (id=${fruit.id})}">Delete Fruit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="/addnewFruit" class="badge badge-warning"><h3 class="font-weight-bold">Add new Fruit</h3></a><br>
+
+    <div class="jumbotron jumbotron-fluid"><h3 class="display-4">Current Hour List</h3></div>
+    <table class="table table-striped">
+       <div th:each="hour : ${hours}">
+           <tr>
+               <td><h5 th:text = "${hour.schedule}"></h5></td>
+               <td><a th:href="@{/updateHour/{id} (id=${hour.id})}">Update hour </a> -
+                   <a th:href="@{/deleteHour/{id} (id=${hour.id})}">Delete hour </a></td>
+           </tr>
+       </div>
+   </table>
+    <a href="/addnewhour" class="badge badge-primary"><h3 class="font-weight-bold">Add new Hour</h3></a>
+
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div th:replace="base :: footer"></div>
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+</body>
+</html>
