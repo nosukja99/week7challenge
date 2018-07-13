@@ -30,7 +30,7 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model)
     {
-        model.addAttribute("days", dayRepository.findAllByOrderById());
+        model.addAttribute("days", dayRepository.findAllByOrderByDayorder());
         return "index";
     }
 
@@ -44,7 +44,7 @@ public class HomeController {
     @RequestMapping("/admin")
     public String startAdmin(Model model)
     {
-        model.addAttribute("days", dayRepository.findAllByOrderById());
+        model.addAttribute("days", dayRepository.findAllByOrderByDayorder());
         model.addAttribute("fruits", fruitRepository.findAll());
         model.addAttribute("hours", hourRepository.findAll());
         return "adminPage";
@@ -158,10 +158,13 @@ public class HomeController {
         {
             model.addAttribute("hours", hourRepository.findAll());
             model.addAttribute("fruits", fruitRepository.findAll());
-            System.out.println("Choose another day. The day already existed.");
+            //System.out.println("Choose another day. The day already existed.");
             return "dayform";
         }
         dayRepository.save(day);
+        day.setDayorder(day.getName());
+        dayRepository.save(day);
+
         return "redirect:/admin";
     }
 
