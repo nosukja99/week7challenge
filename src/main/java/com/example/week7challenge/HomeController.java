@@ -68,7 +68,8 @@ public class HomeController {
         }
         if(file.isEmpty())
         {
-            return "fruitform";
+            fruitRepository.save(fruit);
+            return "redirect:/admin";
         }
         try{
             Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resourcetype", "auto"));

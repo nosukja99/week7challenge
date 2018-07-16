@@ -11,6 +11,25 @@ public class Day {
 
     private String name;
 
+    private String dayorder;
+
+    public String getDayorder() {
+        return dayorder;
+    }
+
+    public void setDayorder(String name) {
+        switch(name) {
+            case "Monday": dayorder = "1"; break;
+            case "Tuesday": dayorder = "2"; break;
+            case "Wednesday": dayorder = "3"; break;
+            case "Thursday": dayorder = "4"; break;
+            case "Friday": dayorder = "5"; break;
+            case "Saturday": dayorder = "6"; break;
+            case "Sunday": dayorder = "7"; break;
+            default: dayorder ="invalid";
+        }
+    }
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="fruit_id")
     private Fruit fruit;

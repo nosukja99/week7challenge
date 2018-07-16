@@ -11,7 +11,6 @@ public class Fruit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Size(min=1)
     private String name;
 
     private double price;
