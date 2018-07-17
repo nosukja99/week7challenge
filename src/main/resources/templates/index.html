@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
@@ -38,7 +38,8 @@
         <tr>
             <td><h4 th:text ="${day.name}"></h4></td>
             <div th:if="${day.fruit.name} !=null">
-                <td><h5 th:text = "${day.fruit.name}"></h5></td></div>
+                <td><h5 th:text = "${day.fruit.name}"></h5></td>
+            </div>
             <div th:if="${day.hour.schedule} !=null">
                 <td><h5 th:text = "${day.hour.schedule}"></h5></td></div>
             <td>   <a th:href="@{/detailDay/{id} (id=${day.id})}">Details</a>
@@ -47,9 +48,14 @@
     </div>
     </table>
     <h6>Location <img src="img/location.png" alt="store location" align="middle"></h6>
-    <a href="/admin" class="badge badge-warning"><h3><Strong>Admin Page</Strong></h3></a>
+
+    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+    <a href="/admin" class="badge badge-warning"><h3><Strong>Admin Page</Strong></h3></a></div>
 </div>
 <br/>
+<a href="/login">Login</a> -
+<a href="/logout">Logout</a> -
+<a href="/register">Register</a>
 <br/>
 <br/>
 <br/>
