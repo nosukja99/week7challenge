@@ -38,7 +38,8 @@
         <div th:each="day : ${days}">
             <tr>
                 <td><h4 th:text ="${day.name}"></h4></td>
-                <td><h5 th:text = "${day.fruit.name}"></h5></td>
+                <div th:if="${day.fruit.name} !=null">
+                    <td><h5 th:text = "${day.fruit.name}"></h5></td></div>
                 <td><h5 th:text = "${day.hour.schedule}"></h5></td>
                 <td><a th:href="@{/updateDay/{id} (id=${day.id})}">Update Day</a> -
                     <a th:href="@{/deleteDay/{id} (id=${day.id})}">Delete Day</a></td>

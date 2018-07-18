@@ -2,14 +2,18 @@ package com.example.week7challenge;
 
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +31,38 @@ public class HomeController {
     @Autowired
     HourRepository hourRepository;
 
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String showRegistrationPage(Model model)
+    {
+        model.addAttribute("user", new User());
+        return "registration";
+    }
+
+    @RequestMapping(value="/register", method=RequestMethod.POST)
+    public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model)
+    {
+        model.addAttribute("user", user);
+        if (result.hasErrors())
+        {
+            return "registration";
+        }
+        else
+        {
+            userService.saveUser(user);
+            model.addAttribute("message", "User Account Successfully Created");
+        }
+        return "index";
+    }
+
+    @RequestMapping("/login")
+    public String login()
+    {
+        return "login";
+    }
+
     @RequestMapping("/")
     public String index(Model model)
     {
@@ -42,8 +78,13 @@ public class HomeController {
     }
 
     @RequestMapping("/admin")
-    public String startAdmin(Model model)
+    public String startAdmin(Model model, HttpServletRequest request, Authentication authentication, Principal principal)
     {
+        Boolean isAdmin = request.isUserInRole("ADMIN");
+        Boolean isUser = request.isUserInRole("USER");
+        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+        String username = principal.getName();
+
         model.addAttribute("days", dayRepository.findAllByOrderByDayorder());
         model.addAttribute("fruits", fruitRepository.findAll());
         model.addAttribute("hours", hourRepository.findAll());
@@ -97,7 +138,7 @@ public class HomeController {
         fruitRepository.deleteById(id);
         return "redirect:/admin";
     }
-//////////////////////////////////////////////Hour
+///////////////////////////////////////////////////Hour
     @GetMapping("/addnewhour")
     public String addHour (Model model)
     {

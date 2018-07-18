@@ -47,11 +47,16 @@
         </tr>
     </div>
     </table>
-    <h6>Location <img src="img/location.png" alt="store location" align="middle"></h6>
+    <h6>Location </h6>
 
-    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49400.05091793061!2d-76.66217695440888!3d39.299516238021354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c80368bb06776b%3A0x9c31b4b4cb4dda73!2sKwon&#39;s+Fresh+Produce!5e0!3m2!1sen!2sus!4v1531927782512" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    <div sec:authorize="isAuthenticated()">
+        Logged User: <span sec:authentication="name"></span><br>
+        Roles: <span sec:authentication="principal.authorities"></span>
+    <div sec:authorize="hasAuthority('ADMIN')">
     <a href="/admin" class="badge badge-warning"><h3><Strong>Admin Page</Strong></h3></a></div>
-</div>
+    </div>
+    </div>
 <br/>
 <a href="/login">Login</a> -
 <a href="/logout">Logout</a> -
