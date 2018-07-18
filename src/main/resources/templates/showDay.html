@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="www.thymeleaf.org">
+<html lang="en" xmlns:th="www.thymeleaf.org"xmlns:sec="www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css"
@@ -27,7 +27,7 @@
             margin-right: auto;
         }
     </style>
-    <title>Title</title>
+    <title>Ujwal's Fruit Stand</title>
 </head>
 <body>
 <div class="container">
@@ -49,7 +49,14 @@
         <td></td>
     </tr>
    </table>
-    <a href="/">HomePage</a>
+    <div sec:authorize="isAuthenticated()">
+        Logged User: <span sec:authentication="name"></span><br>
+        Roles: <span sec:authentication="principal.authorities"></span><br>
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <a href="/admin" class="badge badge-warning"><h3><Strong>Admin Page</Strong></h3></a>
+        </div>
+        <a href="/" class="badge badge-success"><h3><Strong>HomePage</Strong></h3></a>
+    </div>
 </div>
 <br/>
 <br/>
